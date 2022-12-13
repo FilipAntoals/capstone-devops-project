@@ -82,14 +82,12 @@ class TestAccountService(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
-
     def test_health(self):
         """It should be healthy"""
         resp = self.client.get("/health")
         self.assertEqual(resp.status_code, 200)
         data = resp.get_json()
         self.assertEqual(data["status"], "OK")
-
 
     def test_create_account(self):
         """It should Create a new Account"""
@@ -135,7 +133,7 @@ class TestAccountService(TestCase):
         response = self.client.get(
             f"{BASE_URL}/{account.id}", content_type="application/json"
         )
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(data["name"], account.name)
     
@@ -144,7 +142,7 @@ class TestAccountService(TestCase):
         response = self.client.get(
             f"{BASE_URL}/0", content_type="application/json"
         )
-        self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_account_list(self):
         """It should create list of accounts"""
@@ -165,7 +163,6 @@ class TestAccountService(TestCase):
         test_account = AccountFactory()
         response = self.client.post(BASE_URL, json=test_account.serialize())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        #Update account
         new_account = response.get_json()
         new_account["name"] = "BlaBla"
         response = self.client.put(f"{BASE_URL}/{new_account['id']}", json=new_account)
@@ -177,7 +174,7 @@ class TestAccountService(TestCase):
         """It should delete account"""
         account = self._create_accounts(1)[0]
         response = self.client.delete(f"{BASE_URL}/{account.id}")
-        self.assertEqual(response.status_code,status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
     def test_secutity_headers(self):
         """It should return security headers"""
@@ -198,9 +195,4 @@ class TestAccountService(TestCase):
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for CORS header
-        self.assertEqual(response.headers.get('Access-Control-Allow-Origin'),'*')
-
-
-
-
-
+        self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
