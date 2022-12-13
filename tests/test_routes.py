@@ -159,8 +159,8 @@ class TestAccountService(TestCase):
 
     def test_update_account(self):
         """It should Update account info"""
-        #create testing account
-        test_account = AccountFactory()
+        
+        test_account = AccountFactory() #create testing account
         response = self.client.post(BASE_URL, json=test_account.serialize())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         new_account = response.get_json()
