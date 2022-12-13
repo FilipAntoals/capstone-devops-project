@@ -146,7 +146,7 @@ class TestAccountService(TestCase):
 
     def test_account_list(self):
         """It should create list of accounts"""
-        account_list = self._create_accounts(5)[0]
+        self._create_accounts(5)[0]
         response = self.client.get(BASE_URL)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
@@ -169,7 +169,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_account = response.get_json()
         self.assertEqual(updated_account["name"], "BlaBla")
-        
+
     def test_delete_account(self):
         """It should delete account"""
         account = self._create_accounts(1)[0]
