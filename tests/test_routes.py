@@ -21,6 +21,7 @@ DATABASE_URI = os.getenv(
 BASE_URL = "/accounts"
 HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 
+
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
@@ -81,12 +82,14 @@ class TestAccountService(TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
+
     def test_health(self):
         """It should be healthy"""
         resp = self.client.get("/health")
         self.assertEqual(resp.status_code, 200)
         data = resp.get_json()
         self.assertEqual(data["status"], "OK")
+
 
     def test_create_account(self):
         """It should Create a new Account"""
@@ -134,7 +137,7 @@ class TestAccountService(TestCase):
         )
         self.assertEqual(response.status_code,status.HTTP_200_OK)
         data = response.get_json()
-        self.assertEqual(data["name"],account.name)
+        self.assertEqual(data["name"], account.name)
     
     def test_account_not_found(self):
         """Should return error 404 if account not found"""
@@ -142,11 +145,12 @@ class TestAccountService(TestCase):
             f"{BASE_URL}/0", content_type="application/json"
         )
         self.assertEqual(response.status_code,status.HTTP_404_NOT_FOUND)
+
     def test_account_list(self):
         """It should create list of accounts"""
         account_list = self._create_accounts(5)[0]
         response = self.client.get(BASE_URL)
-        self.assertEqual(response.status_code,status.HTTP_200_OK)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(len(data), 5)
 
