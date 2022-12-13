@@ -136,7 +136,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = response.get_json()
         self.assertEqual(data["name"], account.name)
-    
+
     def test_account_not_found(self):
         """Should return error 404 if account not found"""
         response = self.client.get(
@@ -159,8 +159,8 @@ class TestAccountService(TestCase):
 
     def test_update_account(self):
         """It should Update account info"""
-        
-        test_account = AccountFactory() #create testing account
+        # create testing account
+        test_account = AccountFactory()
         response = self.client.post(BASE_URL, json=test_account.serialize())
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         new_account = response.get_json()
@@ -189,10 +189,11 @@ class TestAccountService(TestCase):
         }
         for key, value in headers.items():
             self.assertEqual(response.headers.get(key), value)
-    
+
     def test_cors_security(self):
         """It should return CORS"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         # Check for CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
+        
