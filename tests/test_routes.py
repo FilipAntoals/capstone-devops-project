@@ -169,7 +169,7 @@ class TestAccountService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         updated_account = response.get_json()
         self.assertEqual(updated_account["name"], "BlaBla")
-    
+        
     def test_delete_account(self):
         """It should delete account"""
         account = self._create_accounts(1)[0]
@@ -194,6 +194,4 @@ class TestAccountService(TestCase):
         """It should return CORS"""
         response = self.client.get('/', environ_overrides=HTTPS_ENVIRON)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        # Check for CORS header
         self.assertEqual(response.headers.get('Access-Control-Allow-Origin'), '*')
-        
