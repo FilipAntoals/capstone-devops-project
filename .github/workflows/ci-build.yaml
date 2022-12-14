@@ -31,7 +31,7 @@ jobs:
   
   steps:
     - name: Checkout 
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     - name: Install dependecies
       run: |
@@ -44,8 +44,7 @@ jobs:
         flake8 service --count --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Run unit test with Nose
-      run: | 
-        nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
+      run: nosetests
       env:
         DATABASE_URI: "postgresql://postgres:pgs3cr3t@postgres:5432/testdb"
 
