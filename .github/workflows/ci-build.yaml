@@ -20,8 +20,8 @@ jobs:
           - 5432:5432
 
         env:
-        POSTGRES_PASSWORD: pgs3cr3t
-        POSTGRES_DB: testdb
+          POSTGRES_PASSWORD: pgs3cr3t
+          POSTGRES_DB: testdb
 
         options: >-
           --health-cmd pg_isready
