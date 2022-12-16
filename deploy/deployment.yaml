@@ -18,9 +18,10 @@ spec:
         app: accounts
     spec:
       containers:
-        - image: IMAGE_NAME_HERE
-          name: accounts
-          resources: {}
+      - image: us.icr.io/sn-labs-FilipAntolas/accounts:1
+        name: accounts
+        resources: {}
+        
         env:
           - name: DATABASE_HOST
             value: postgresql
